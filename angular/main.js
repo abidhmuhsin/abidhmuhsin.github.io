@@ -6235,7 +6235,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "p {\n  font-family: Lato;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0I7Q0FDbkIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInAge1xuICBmb250LWZhbWlseTogTGF0bztcbn0iXX0= */"
+module.exports = ".content-wrapper {\n  width: 30%;\n  margin:50px auto;\n  border: 1px solid green;\n  padding: 10px 30px;\n}\n\n.info{\n  font-size: 13px;\n  font-style: italic;\n  color: grey;\n}\n\n.info2{\n  font-size: 13px;\n  color: rgb(24, 3, 3);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0VBQ1gsaUJBQWlCO0VBQ2pCLHdCQUF3QjtFQUN4QixtQkFBbUI7Q0FDcEI7O0FBRUQ7RUFDRSxnQkFBZ0I7RUFDaEIsbUJBQW1CO0VBQ25CLFlBQVk7Q0FDYjs7QUFDRDtFQUNFLGdCQUFnQjtFQUNoQixxQkFBcUI7Q0FDdEIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250ZW50LXdyYXBwZXIge1xuICB3aWR0aDogMzAlO1xuICBtYXJnaW46NTBweCBhdXRvO1xuICBib3JkZXI6IDFweCBzb2xpZCBncmVlbjtcbiAgcGFkZGluZzogMTBweCAzMHB4O1xufVxuXG4uaW5mb3tcbiAgZm9udC1zaXplOiAxM3B4O1xuICBmb250LXN0eWxlOiBpdGFsaWM7XG4gIGNvbG9yOiBncmV5O1xufVxuLmluZm8ye1xuICBmb250LXNpemU6IDEzcHg7XG4gIGNvbG9yOiByZ2IoMjQsIDMsIDMpO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -6246,7 +6246,7 @@ module.exports = "p {\n  font-family: Lato;\n}\n/*# sourceMappingURL=data:applic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-loader></app-loader>\n\nSynopsis\n\nFBI Hostage Rescue Team leader and U.S. war veteran Will Sawyer now assesses security for skyscrapers. On assignment in Hong Kong he finds the tallest, safest building in the world suddenly ablaze and he's been framed for it. A wanted man on the run, Will must find those responsible, clear his name and somehow rescue his family who are trapped inside the building - above the fire line\nSynopsis\n\nFBI Hostage Rescue Team leader and U.S. war veteran Will Sawyer now assesses security for skyscrapers. On assignment in Hong Kong he finds the tallest, safest building in the world suddenly ablaze and he's been framed for it. A wanted man on the run, Will must find those responsible, clear his name and somehow rescue his family who are trapped inside the building - above the fire line\nSynopsis\n\nFBI Hostage Rescue Team leader and U.S. war veteran Will Sawyer now assesses security for skyscrapers. On assignment in Hong Kong he finds the tallest, safest building in the world suddenly ablaze and he's been framed for it. A wanted man on the run, Will must find those responsible, clear his name and somehow rescue his family who are trapped inside the building - above the fire line"
+module.exports = "<app-loader></app-loader>\n\n<div class=\"content-wrapper\">\n\n<button (click)=\"loadData();\">LoadData</button>\n<p class=\"info\"> Click button to clear and load the data from backend.</p>\n<p class=\"info2\">  Loader will be shown while http request is in progress</p>\n\n<div *ngIf=\"data.length>0\">\n<h2>Heroes List</h2>\n<p *ngFor=\"let obj of data\">\n  {{obj.id }} - {{obj.name}}\n</p>\n\n</div>\n\n</div>"
 
 /***/ }),
 
@@ -6274,13 +6274,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(svc) {
-        this.svc = svc;
-        this.name = 'Angular';
-        this.svc.getHeroes().subscribe(function (response) {
-            console.log('ff', response);
-        });
+    function AppComponent(backendSvc) {
+        this.backendSvc = backendSvc;
+        this.data = [];
     }
+    AppComponent.prototype.loadData = function () {
+        var _this = this;
+        this.data = [];
+        this.backendSvc.getHeroes().subscribe(function (response) {
+            _this.data = response;
+            console.log('res', response);
+        });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'my-app',
@@ -6315,12 +6320,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _backend_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./backend.service */ "./src/app/backend.service.ts");
 /* harmony import */ var angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular-in-memory-web-api */ "./node_modules/angular-in-memory-web-api/index.js");
 /* harmony import */ var _mock_data_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mock-data.service */ "./src/app/mock-data.service.ts");
+/* harmony import */ var _http_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./http-interceptor */ "./src/app/http-interceptor.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -6337,12 +6344,14 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"],
                 angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_7__["HttpClientInMemoryWebApiModule"].forRoot(_mock_data_service__WEBPACK_IMPORTED_MODULE_8__["MockDataService"], {
-                    delay: 5000,
+                    delay: 3000,
                     passThruUnknownUrl: true
                 })],
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"], _loader_loader_component__WEBPACK_IMPORTED_MODULE_4__["LoaderComponent"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]],
-            providers: [_loader_loader_service__WEBPACK_IMPORTED_MODULE_5__["LoaderService"], _backend_service__WEBPACK_IMPORTED_MODULE_6__["BackendService"], _mock_data_service__WEBPACK_IMPORTED_MODULE_8__["MockDataService"]]
+            providers: [_loader_loader_service__WEBPACK_IMPORTED_MODULE_5__["LoaderService"], _backend_service__WEBPACK_IMPORTED_MODULE_6__["BackendService"], _mock_data_service__WEBPACK_IMPORTED_MODULE_8__["MockDataService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"], useClass: _http_interceptor__WEBPACK_IMPORTED_MODULE_9__["LoaderHttpInterceptor"], multi: true }
+            ]
         })
     ], AppModule);
     return AppModule;
@@ -6386,13 +6395,9 @@ var BackendService = /** @class */ (function () {
     /** GET heroes from the server */
     BackendService.prototype.getHeroes = function () {
         return this.http.get('api/heroes');
-        return rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"].create(function (observer) {
-            observer.next('Hello');
-            observer.next('World');
-        });
     };
     __decorate([
-        Object(_loader_loader_service__WEBPACK_IMPORTED_MODULE_3__["LoaderEnabled"])(),
+        Object(_loader_loader_service__WEBPACK_IMPORTED_MODULE_3__["LoaderEnabled"])('Heroes on the way..'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"])
@@ -6408,6 +6413,56 @@ var BackendService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/http-interceptor.ts":
+/*!*************************************!*\
+  !*** ./src/app/http-interceptor.ts ***!
+  \*************************************/
+/*! exports provided: LoaderHttpInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderHttpInterceptor", function() { return LoaderHttpInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _loader_loader_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loader/loader.service */ "./src/app/loader/loader.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var LoaderHttpInterceptor = /** @class */ (function () {
+    function LoaderHttpInterceptor() {
+    }
+    LoaderHttpInterceptor.prototype.intercept = function (req, next) {
+        return next.handle(req);
+    };
+    __decorate([
+        Object(_loader_loader_service__WEBPACK_IMPORTED_MODULE_3__["LoaderEnabled"])('LoaderHttpInterceptor..'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpRequest"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHandler"]]),
+        __metadata("design:returntype", rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"])
+    ], LoaderHttpInterceptor.prototype, "intercept", null);
+    LoaderHttpInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], LoaderHttpInterceptor);
+    return LoaderHttpInterceptor;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/loader/loader.component.css":
 /*!*********************************************!*\
   !*** ./src/app/loader/loader.component.css ***!
@@ -6415,7 +6470,7 @@ var BackendService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".backdrop1 {\r\n  position: fixed;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, 0.397);\r\n}\r\n\r\n.loader,\r\n.loader:before,\r\n.loader:after {\r\n  border-radius: 50%;\r\n}\r\n\r\n.loader {\r\n  color: rgb(0, 110, 255);\r\n  font-size: 11px;\r\n  text-indent: -99999em;\r\n  /* margin: 55px auto; */\r\n  position: fixed;\r\n  top: calc(50% - 5.2em);\r\n  left: calc(50% - 5.2em);\r\n  width: 10em;\r\n  height: 10em;\r\n  box-shadow: inset 0 0 0 1em;\r\n  -webkit-transform: translateZ(0);\r\n  transform: translateZ(0);\r\n}\r\n\r\n.loader:before,\r\n.loader:after {\r\n  position: absolute;\r\n  content: '';\r\n}\r\n\r\n.loader:before {\r\n  width: 5.2em;\r\n  height: 10.2em;\r\n  background: #fff;\r\n  border-radius: 10.2em 0 0 10.2em;\r\n  top: -0.1em;\r\n  left: -0.1em;\r\n  -webkit-transform-origin: 5.2em 5.1em;\r\n  transform-origin: 5.2em 5.1em;\r\n  -webkit-animation: load2 2s infinite ease 1.5s;\r\n  animation: load2 2s infinite ease 1.5s;\r\n}\r\n\r\n.loader:after {\r\n  width: 5.2em;\r\n  height: 10.2em;\r\n  background: #fff;\r\n  border-radius: 0 10.2em 10.2em 0;\r\n  top: -0.1em;\r\n  left: 5.1em;\r\n  -webkit-transform-origin: 0px 5.1em;\r\n  transform-origin: 0px 5.1em;\r\n  -webkit-animation: load2 2s infinite ease;\r\n  animation: load2 2s infinite ease;\r\n}\r\n\r\n@-webkit-keyframes load2 {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes load2 {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  100% {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLE9BQU87RUFDUCxVQUFVO0VBQ1YsUUFBUTtFQUNSLFNBQVM7RUFDVCx1Q0FBdUM7Q0FDeEM7O0FBRUQ7OztFQUdFLG1CQUFtQjtDQUNwQjs7QUFDRDtFQUNFLHdCQUF3QjtFQUN4QixnQkFBZ0I7RUFDaEIsc0JBQXNCO0VBQ3RCLHdCQUF3QjtFQUN4QixnQkFBZ0I7RUFDaEIsdUJBQXVCO0VBQ3ZCLHdCQUF3QjtFQUN4QixZQUFZO0VBQ1osYUFBYTtFQUNiLDRCQUE0QjtFQUM1QixpQ0FBaUM7RUFFakMseUJBQXlCO0NBQzFCOztBQUNEOztFQUVFLG1CQUFtQjtFQUNuQixZQUFZO0NBQ2I7O0FBQ0Q7RUFDRSxhQUFhO0VBQ2IsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixpQ0FBaUM7RUFDakMsWUFBWTtFQUNaLGFBQWE7RUFDYixzQ0FBc0M7RUFDdEMsOEJBQThCO0VBQzlCLCtDQUErQztFQUMvQyx1Q0FBdUM7Q0FDeEM7O0FBQ0Q7RUFDRSxhQUFhO0VBQ2IsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixpQ0FBaUM7RUFDakMsWUFBWTtFQUNaLFlBQVk7RUFDWixvQ0FBb0M7RUFDcEMsNEJBQTRCO0VBQzVCLDBDQUEwQztFQUMxQyxrQ0FBa0M7Q0FDbkM7O0FBQ0Q7RUFDRTtJQUNFLGdDQUFnQztJQUNoQyx3QkFBd0I7R0FDekI7RUFDRDtJQUNFLGtDQUFrQztJQUNsQywwQkFBMEI7R0FDM0I7Q0FDRjs7QUFDRDtFQUNFO0lBQ0UsZ0NBQWdDO0lBQ2hDLHdCQUF3QjtHQUN6QjtFQUNEO0lBQ0Usa0NBQWtDO0lBQ2xDLDBCQUEwQjtHQUMzQjtDQUNGIiwiZmlsZSI6InNyYy9hcHAvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2tkcm9wMSB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHRvcDogMDtcclxuICBib3R0b206IDA7XHJcbiAgbGVmdDogMDtcclxuICByaWdodDogMDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuMzk3KTtcclxufVxyXG5cclxuLmxvYWRlcixcclxuLmxvYWRlcjpiZWZvcmUsXHJcbi5sb2FkZXI6YWZ0ZXIge1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxufVxyXG4ubG9hZGVyIHtcclxuICBjb2xvcjogcmdiKDAsIDExMCwgMjU1KTtcclxuICBmb250LXNpemU6IDExcHg7XHJcbiAgdGV4dC1pbmRlbnQ6IC05OTk5OWVtO1xyXG4gIC8qIG1hcmdpbjogNTVweCBhdXRvOyAqL1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICB0b3A6IGNhbGMoNTAlIC0gNS4yZW0pO1xyXG4gIGxlZnQ6IGNhbGMoNTAlIC0gNS4yZW0pO1xyXG4gIHdpZHRoOiAxMGVtO1xyXG4gIGhlaWdodDogMTBlbTtcclxuICBib3gtc2hhZG93OiBpbnNldCAwIDAgMCAxZW07XHJcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZVooMCk7XHJcbiAgLW1zLXRyYW5zZm9ybTogdHJhbnNsYXRlWigwKTtcclxuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVooMCk7XHJcbn1cclxuLmxvYWRlcjpiZWZvcmUsXHJcbi5sb2FkZXI6YWZ0ZXIge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICBjb250ZW50OiAnJztcclxufVxyXG4ubG9hZGVyOmJlZm9yZSB7XHJcbiAgd2lkdGg6IDUuMmVtO1xyXG4gIGhlaWdodDogMTAuMmVtO1xyXG4gIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgYm9yZGVyLXJhZGl1czogMTAuMmVtIDAgMCAxMC4yZW07XHJcbiAgdG9wOiAtMC4xZW07XHJcbiAgbGVmdDogLTAuMWVtO1xyXG4gIC13ZWJraXQtdHJhbnNmb3JtLW9yaWdpbjogNS4yZW0gNS4xZW07XHJcbiAgdHJhbnNmb3JtLW9yaWdpbjogNS4yZW0gNS4xZW07XHJcbiAgLXdlYmtpdC1hbmltYXRpb246IGxvYWQyIDJzIGluZmluaXRlIGVhc2UgMS41cztcclxuICBhbmltYXRpb246IGxvYWQyIDJzIGluZmluaXRlIGVhc2UgMS41cztcclxufVxyXG4ubG9hZGVyOmFmdGVyIHtcclxuICB3aWR0aDogNS4yZW07XHJcbiAgaGVpZ2h0OiAxMC4yZW07XHJcbiAgYmFja2dyb3VuZDogI2ZmZjtcclxuICBib3JkZXItcmFkaXVzOiAwIDEwLjJlbSAxMC4yZW0gMDtcclxuICB0b3A6IC0wLjFlbTtcclxuICBsZWZ0OiA1LjFlbTtcclxuICAtd2Via2l0LXRyYW5zZm9ybS1vcmlnaW46IDBweCA1LjFlbTtcclxuICB0cmFuc2Zvcm0tb3JpZ2luOiAwcHggNS4xZW07XHJcbiAgLXdlYmtpdC1hbmltYXRpb246IGxvYWQyIDJzIGluZmluaXRlIGVhc2U7XHJcbiAgYW5pbWF0aW9uOiBsb2FkMiAycyBpbmZpbml0ZSBlYXNlO1xyXG59XHJcbkAtd2Via2l0LWtleWZyYW1lcyBsb2FkMiB7XHJcbiAgMCUge1xyXG4gICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpO1xyXG4gIH1cclxuICAxMDAlIHtcclxuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcclxuICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7XHJcbiAgfVxyXG59XHJcbkBrZXlmcmFtZXMgbG9hZDIge1xyXG4gIDAlIHtcclxuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICB9XHJcbiAgMTAwJSB7XHJcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xyXG4gIH1cclxufVxyXG4iXX0= */"
+module.exports = ".backdrop {\r\n  position: fixed;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, 0.568);\r\n}\r\n.spinner-wrapper{\r\n  position: fixed;\r\n  top: calc(50% - 48px);/* dispaly text at 50% from top - height of spinner. No height/2 -for showing info text*/\r\n  left:calc(50% - 24px);/* dispaly text at 50% from top - width/2 of spinner*/\r\n}\r\n@-webkit-keyframes rotating {\r\n    100% {\r\n        -webkit-transform: rotate(360deg);\r\n                transform: rotate(360deg);\r\n    }\r\n}\r\n@keyframes rotating {\r\n    100% {\r\n        -webkit-transform: rotate(360deg);\r\n                transform: rotate(360deg);\r\n    }\r\n}\r\n.spinner {\r\n    border-radius: 50%;\r\n    width: 30px;\r\n    height: 30px;\r\n    border: 4px solid rgba(243, 243, 243, 0.1);\r\n    border-top: 4px solid #fff;\r\n    -webkit-animation: rotating 1.2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);\r\n            animation: rotating 1.2s infinite cubic-bezier(0.785, 0.135, 0.15, 0.86);\r\n}\r\n.info {\r\n    font-size: 12px;\r\n    color: #ffffffd9;\r\n    position: absolute;\r\n    top:50%; /* dispaly text at 50% from top*/\r\n    left: 0;\r\n    margin: auto;\r\n    text-align: center;\r\n    min-width: 100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQWdCO0VBQ2hCLE9BQU87RUFDUCxVQUFVO0VBQ1YsUUFBUTtFQUNSLFNBQVM7RUFDVCx1Q0FBdUM7Q0FDeEM7QUFDRDtFQUNFLGdCQUFnQjtFQUNoQixzQkFBc0IseUZBQXlGO0VBQy9HLHNCQUFzQixzREFBc0Q7Q0FDN0U7QUFFRDtJQUNJO1FBQ0ksa0NBQTBCO2dCQUExQiwwQkFBMEI7S0FDN0I7Q0FDSjtBQUpEO0lBQ0k7UUFDSSxrQ0FBMEI7Z0JBQTFCLDBCQUEwQjtLQUM3QjtDQUNKO0FBRUQ7SUFDSSxtQkFBbUI7SUFDbkIsWUFBWTtJQUNaLGFBQWE7SUFDYiwyQ0FBMkM7SUFDM0MsMkJBQTJCO0lBQzNCLGlGQUF5RTtZQUF6RSx5RUFBeUU7Q0FDNUU7QUFHRDtJQUNJLGdCQUFnQjtJQUNoQixpQkFBaUI7SUFDakIsbUJBQW1CO0lBQ25CLFFBQVEsQ0FBQyxpQ0FBaUM7SUFDMUMsUUFBUTtJQUNSLGFBQWE7SUFDYixtQkFBbUI7SUFDbkIsZ0JBQWdCO0NBQ25CIiwiZmlsZSI6InNyYy9hcHAvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhY2tkcm9wIHtcclxuICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgdG9wOiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICBsZWZ0OiAwO1xyXG4gIHJpZ2h0OiAwO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41NjgpO1xyXG59XHJcbi5zcGlubmVyLXdyYXBwZXJ7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHRvcDogY2FsYyg1MCUgLSA0OHB4KTsvKiBkaXNwYWx5IHRleHQgYXQgNTAlIGZyb20gdG9wIC0gaGVpZ2h0IG9mIHNwaW5uZXIuIE5vIGhlaWdodC8yIC1mb3Igc2hvd2luZyBpbmZvIHRleHQqL1xyXG4gIGxlZnQ6Y2FsYyg1MCUgLSAyNHB4KTsvKiBkaXNwYWx5IHRleHQgYXQgNTAlIGZyb20gdG9wIC0gd2lkdGgvMiBvZiBzcGlubmVyKi9cclxufVxyXG5cclxuQGtleWZyYW1lcyByb3RhdGluZyB7XHJcbiAgICAxMDAlIHtcclxuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xyXG4gICAgfVxyXG59XHJcblxyXG4uc3Bpbm5lciB7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICB3aWR0aDogMzBweDtcclxuICAgIGhlaWdodDogMzBweDtcclxuICAgIGJvcmRlcjogNHB4IHNvbGlkIHJnYmEoMjQzLCAyNDMsIDI0MywgMC4xKTtcclxuICAgIGJvcmRlci10b3A6IDRweCBzb2xpZCAjZmZmO1xyXG4gICAgYW5pbWF0aW9uOiByb3RhdGluZyAxLjJzIGluZmluaXRlIGN1YmljLWJlemllcigwLjc4NSwgMC4xMzUsIDAuMTUsIDAuODYpO1xyXG59XHJcblxyXG5cclxuLmluZm8ge1xyXG4gICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgY29sb3I6ICNmZmZmZmZkOTtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDo1MCU7IC8qIGRpc3BhbHkgdGV4dCBhdCA1MCUgZnJvbSB0b3AqL1xyXG4gICAgbGVmdDogMDtcclxuICAgIG1hcmdpbjogYXV0bztcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIG1pbi13aWR0aDogMTAwJTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -6426,7 +6481,7 @@ module.exports = ".backdrop1 {\r\n  position: fixed;\r\n  top: 0;\r\n  bottom: 0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"loader-wrapper\" *ngIf=\"loaderEnabled\">\n  \n  <div class=\"backdrop\"></div>\n  <div class=\"loader\">Loading...</div>\n\n</div>"
+module.exports = "<div *ngIf=\"loaderEnabled\">\n\n\t<div class=\"backdrop\"></div>\n\n\t<div class=\"spinner-wrapper\">\n\t\t<div class=\"spinner\"></div>\n\t</div>\n\n\t<div class=\"info\">{{info}}</div>\n\n</div>"
 
 /***/ }),
 
@@ -6462,6 +6517,13 @@ var LoaderComponent = /** @class */ (function () {
     Object.defineProperty(LoaderComponent.prototype, "loaderEnabled", {
         get: function () {
             return this.loaderService.loaderEnabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LoaderComponent.prototype, "info", {
+        get: function () {
+            return this.loaderService.infoText;
         },
         enumerable: true,
         configurable: true
@@ -6516,6 +6578,14 @@ var LoaderService = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(LoaderService.prototype, "infoText", {
+        // public methods are necessary for component to access the static variable.
+        get: function () {
+            return LoaderService_1.infoText;
+        },
+        enumerable: true,
+        configurable: true
+    });
     LoaderService.showLoader = function () {
         LoaderService_1.loaderEnabled = true;
     };
@@ -6530,23 +6600,36 @@ var LoaderService = /** @class */ (function () {
     return LoaderService;
 }());
 
-function LoaderEnabled() {
+/*  --Decorator LoaderEnabled--
+Use @LoaderEnabled() above any method that returns an observable.
+This would inject few lines to show the loader before actually invoking
+the caller function and also adds a map and catch section to hide the
+loader once the subscription is complete.
+*/
+function LoaderEnabled(customText) {
     return function (target, propertyKey, descriptor) {
         var original = descriptor.value;
         descriptor.value = function () {
             LoaderService.showLoader();
-            console.log('******Decorator call -LOADERON', propertyKey, descriptor);
+            if (customText) {
+                LoaderService.infoText = customText;
+            }
+            console.log('**InjectedCode-begin--LOADERON', propertyKey, customText);
             return original.apply(this, arguments)
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["finalize"])(function () {
-                console.log('******Decorator call done--LOADEROFF', propertyKey);
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (res) {
+                console.log('**InjectedCode-map--LOADEROFF', propertyKey);
                 LoaderService.hideLoader();
+                return res;
+            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(function (err) {
+                console.log('**InjectedCode-err--LOADEROFF', propertyKey);
+                LoaderService.hideLoader();
+                throw err;
             }));
         };
         return descriptor;
     };
 }
 /*
-
 export function LoaderEnabled(): MethodDecorator {
 
   return function ( target: any, propertyKey: string, descriptor: PropertyDescriptor ) {
@@ -6557,20 +6640,22 @@ export function LoaderEnabled(): MethodDecorator {
       }
        this.timer = setTimeout(() => {
          LoaderService.showLoader();
-       }, 0);
-    // console.log('******Decorator call -LOADERON', propertyKey);
+       }, 200);
       return original.apply(this, arguments)
-          .map((res) => {
+        .pipe(
+          map((res) => {
             clearTimeout(this.timer);
-           // console.log('******Decorator call done--LOADEROFF', propertyKey);
+            console.log('**InjectedCode-map--LOADEROFF', propertyKey);
             LoaderService.hideLoader();
             return res;
-          }).catch((err) => {
+          }),
+          catchError((err) => {
             clearTimeout(this.timer);
-          //  console.log('******Decorator call done--LOADEROFF', propertyKey);
+            console.log('**InjectedCode-err--LOADEROFF', propertyKey);
             LoaderService.hideLoader();
             throw err;
-          });
+          })
+        );
   };
   return descriptor;
 };
@@ -6613,11 +6698,12 @@ var MockDataService = /** @class */ (function () {
 /*!*********************!*\
   !*** ./src/main.ts ***!
   \*********************/
-/*! no exports provided */
+/*! exports provided: LoaderEnabled */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderEnabled", function() { return LoaderEnabled; });
 /* harmony import */ var _polyfills__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polyfills */ "./src/polyfills.ts");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
@@ -6632,6 +6718,21 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
     window['ngRef'] = ref;
     // Otherwise, log the boot error
 }).catch(function (err) { return console.error(err); });
+function LoaderEnabled() {
+    return function (target, propertyKey, descriptor) {
+        var original = descriptor.value;
+        descriptor.value = function () {
+            // LoaderService.showLoader();
+            console.log('******Decorator call -LOADERON', propertyKey, original);
+            return original.apply(this, arguments)
+                .finally(function () {
+                console.log('******Decorator call done--LOADEROFF', propertyKey);
+                //  LoaderService.hideLoader();
+            });
+        };
+        return descriptor;
+    };
+}
 
 
 /***/ }),
